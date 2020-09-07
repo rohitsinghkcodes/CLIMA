@@ -38,13 +38,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueGrey[900],
-        title: Center(
-          child: Text('CLIMA'),
-        ),
-      ),
-      backgroundColor: Colors.blueGrey[800],
+      backgroundColor: Colors.redAccent,
       body: Center(
         child: SpinKitThreeBounce(
           color: Colors.white,
