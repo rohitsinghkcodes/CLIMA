@@ -62,47 +62,49 @@ class _LocationScreenState extends State<LocationScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  FlatButton(
-                    onPressed: () async {
-                      var weatherData = await weather.getLocationWeather();
-                      updateUI(weatherData);
-                    },
-                    child: Icon(
-                      Icons.update,
-                      size: 55.0,
-                      color: Colors.blueGrey[500],
-                    ),
-                  ),
-                  FlatButton(
-                    onPressed: () async {
-                      var typedName = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return CityScreen();
-                          },
-                        ),
-                      );
-
-                      if (typedName != null) {
-                        var weatherData =
-                            await weather.getCityWeather(typedName);
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () async {
+                        var weatherData = await weather.getLocationWeather();
                         updateUI(weatherData);
-                      }
-                    },
-                    child: Icon(
-                      Icons.add_location,
-                      size: 55.0,
-                      color: Colors.blueGrey[500],
+                      },
+                      child: Icon(
+                        Icons.update,
+                        size: 60.0,
+                        color: Colors.blueGrey[500],
+                      ),
                     ),
-                  ),
-                ],
+                    FlatButton(
+                      onPressed: () async {
+                        var typedName = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CityScreen();
+                            },
+                          ),
+                        );
+
+                        if (typedName != null) {
+                          var weatherData =
+                              await weather.getCityWeather(typedName);
+                          updateUI(weatherData);
+                        }
+                      },
+                      child: Icon(
+                        Icons.add_location,
+                        size: 60.0,
+                        color: Colors.blueGrey[500],
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -120,6 +122,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 ),
               ),
               Expanded(
+                flex: 2,
                 child: Text(
                   '$msg in $cityName!',
                   textAlign: TextAlign.center,

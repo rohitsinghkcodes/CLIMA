@@ -39,7 +39,7 @@ class _CityScreenState extends State<CityScreen> {
                 margin: EdgeInsets.only(top: 16.0),
                 child: Icon(
                   Icons.add_location,
-                  color: Colors.white,
+                  color: Colors.blueGrey[500],
                   size: 60.0,
                 ),
               ),
