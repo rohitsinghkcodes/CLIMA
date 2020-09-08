@@ -15,7 +15,7 @@ class _LocationScreenState extends State<LocationScreen> {
   WeatherModel weather = WeatherModel();
   int temperature;
   String weatherIcon;
-  String city;
+  String cityName;
   String msg;
 
   @override
@@ -29,17 +29,17 @@ class _LocationScreenState extends State<LocationScreen> {
       if (weatherData == null) {
         temperature = 0;
         weatherIcon = 'Error!';
-        city = '';
+        cityName = '';
         msg =
             'Unable to get the weather data\nError happened in loading the location';
         return;
       }
 
-      double tempe = weatherData['main']['temp'];
-      temperature = tempe.toInt();
+      var temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
       var condition = weatherData['weather'][0]['id'];
       weatherIcon = weather.getWeatherIcon(condition);
-      city = weatherData['name'];
+      cityName = weatherData['name'];
       msg = weather.getMessage(temperature);
     });
   }
@@ -77,11 +77,21 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CityScreen();
-                      }));
+                    onPressed: () async {
+                      var typedName = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return CityScreen();
+                          },
+                        ),
+                      );
+
+                      if (typedName != null) {
+                        var weatherData =
+                            await weather.getCityWeather(typedName);
+                        updateUI(weatherData);
+                      }
                     },
                     child: Icon(
                       Icons.add_location,
@@ -111,7 +121,7 @@ class _LocationScreenState extends State<LocationScreen> {
               ),
               Expanded(
                 child: Text(
-                  '$msg in $city!',
+                  '$msg in $cityName!',
                   textAlign: TextAlign.center,
                   style: kMessageTextStyle,
                 ),
