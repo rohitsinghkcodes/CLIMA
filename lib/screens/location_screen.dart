@@ -68,26 +68,28 @@ class _LocationScreenState extends State<LocationScreen> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 15.0),
+              Expanded(
+                flex: 2,
                 child: Row(
-                  children: <Widget>[
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Text(
                       '$temperature°',
+                      textAlign: TextAlign.center,
                       style: kTempTextStyle,
                     ),
                     Text(
                       weatherIcon,
+                      textAlign: TextAlign.center,
                       style: kConditionTextStyle,
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 15.0),
+              Expanded(
                 child: Text(
                   '$msg in $city!',
-                  textAlign: TextAlign.right,
+                  textAlign: TextAlign.center,
                   style: kMessageTextStyle,
                 ),
               ),
