@@ -31,7 +31,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.redAccent,
+      backgroundColor: Colors.black12,
       body: Center(
         child: SpinKitThreeBounce(
           color: Colors.white,
