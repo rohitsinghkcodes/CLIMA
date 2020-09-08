@@ -24,11 +24,23 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void updateUI(dynamic weatherData) {
-    temperature = weatherData['main']['temp'];
-    var condition = weatherData['weather'][0]['id'];
-    weatherIcon = weather.getWeatherIcon(condition);
-    city = weatherData['name'];
-    msg = weather.getMessage(temperature);
+    setState(() {
+      if (weatherData == null) {
+        temperature = 0;
+        weatherIcon = 'Error!';
+        city = '';
+        msg =
+            'Unable to get the weather data\nError happened in loading the location';
+        return;
+      }
+
+      double tempe = weatherData['main']['temp'];
+      temperature = tempe.toInt();
+      var condition = weatherData['weather'][0]['id'];
+      weatherIcon = weather.getWeatherIcon(condition);
+      city = weatherData['name'];
+      msg = weather.getMessage(temperature);
+    });
   }
 
   @override
@@ -50,20 +62,25 @@ class _LocationScreenState extends State<LocationScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: Icon(
-                      Icons.near_me,
-                      size: 50.0,
+                      Icons.update,
+                      size: 55.0,
+                      color: Colors.blueGrey[500],
                     ),
                   ),
                   FlatButton(
                     onPressed: () {},
                     child: Icon(
-                      Icons.location_city,
-                      size: 50.0,
+                      Icons.add_location,
+                      size: 55.0,
+                      color: Colors.blueGrey[500],
                     ),
                   ),
                 ],
